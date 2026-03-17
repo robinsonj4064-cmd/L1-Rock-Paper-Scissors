@@ -1,3 +1,5 @@
+import random
+
 # Check that users have entered a valid
 # option based on a list
 
@@ -117,6 +119,7 @@ while rounds_played < num_rounds:
     if user_choice == "xxx":
         break
 
+    comp_choise = random.choice(rps_list[:-1])
 
     rounds_played += 1
     # if user are in infinite mode, increase number of rounds
