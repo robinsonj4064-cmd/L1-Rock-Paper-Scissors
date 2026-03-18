@@ -1,4 +1,6 @@
 import random
+from unittest import result
+
 
 # Check that users have entered a valid
 # option based on a list
@@ -73,6 +75,27 @@ def int_check(question):
         except ValueError:
             print(error)
 
+# compares user / computer choice and returns
+# results (win / lose / tie)
+def rps_compare(user, comp) :
+
+    # If the user and the computer choice is the same, it's a tie
+    if user == comp:
+        result = "tie"
+
+    # There are three ways to win
+    elif user == "paper" and comp == "rock":
+        result = "win"
+    elif user == "scissors" and comp == "paper":
+        result = "win"
+    elif user == "rock" and comp == "scissors":
+        result = "win"
+
+    # if it's not a win / tie, then it's a loss
+    else:
+        result = "lose"
+
+    return result
 
 
 # Main routine starts here
@@ -113,13 +136,21 @@ while rounds_played < num_rounds:
     print(rounds_heading)
     print()
 
+    comp_choice = random.choice(rps_list[:-1])
+    print("Computer choice", comp_choice)
+
+
     user_choice = string_checker("Choose: ", rps_list)
     print("you chose", user_choice)
 
     if user_choice == "xxx":
         break
 
-    comp_choise = random.choice(rps_list[:-1])
+
+
+
+    result = rps_compare(user_choice, comp_choice)
+    print(f"{user_choice} vs {comp_choice}, {result}")
 
     rounds_played += 1
     # if user are in infinite mode, increase number of rounds
