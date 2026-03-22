@@ -1,15 +1,20 @@
-# Check that users have entered a valid
-# option based on a list
-def rps_compare(user, comp):
+def rps_compare(user, comp) :
 
+    # If the user and the computer choice is the same, it's a tie
     if user == comp:
         result = "tie"
 
     # There are three ways to win
+    elif user == "paper" and comp == "rock":
+        result = "win"
+    elif user == "scissors" and comp == "paper":
+        result = "win"
+    elif user == "rock" and comp == "scissors":
+        result = "win"
 
-    # if it's not a win / tie then its a loss
+    # if it's not a win / tie, then it's a loss
     else:
-        result = "loss"
+        result = "lose"
 
     return result
 
@@ -18,12 +23,12 @@ def rps_compare(user, comp):
 # Automated testing is below in the form (test_case, expected_value)
 to_test = [
     ('rock', 'rock', 'tie'),
-    ('rock', 'paper', 'loss'),
+    ('rock', 'paper', 'lose'),
     ('rock', 'scissors', 'win'),
     ('paper', 'rock', 'win'),
     ('paper', 'paper', 'tie'),
-    ('paper', 'scissors', 'loss'),
-    ('scissors', 'rock', 'loss'),
+    ('paper', 'scissors', 'lose'),
+    ('scissors', 'rock', 'lose'),
     ('scissors', 'paper', 'win'),
     ('scissors', 'scissors', 'tie'),
 ]

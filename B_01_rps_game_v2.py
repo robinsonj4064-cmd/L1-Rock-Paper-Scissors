@@ -51,7 +51,7 @@ Good luck!! :p (you will need it...)
     ''')
 
 def int_check(question):
-    """Checks users enetr on integer more than / equal to 13"""
+    """Checks users enter on integer more than / equal to 13"""
 
     while True:
         error = "Please enter an integer that is 1 or more."
@@ -81,21 +81,21 @@ def rps_compare(user, comp) :
 
     # If the user and the computer choice is the same, it's a tie
     if user == comp:
-        result = "tie"
+        round_result = "tie"
 
     # There are three ways to win
     elif user == "paper" and comp == "rock":
-        result = "win"
+        round_result = "win"
     elif user == "scissors" and comp == "paper":
-        result = "win"
+        round_result = "win"
     elif user == "rock" and comp == "scissors":
-        result = "win"
+        round_result = "win"
 
     # if it's not a win / tie, then it's a loss
     else:
-        result = "lose"
+        round_result = "lose"
 
-    return result
+    return round_result
 
 
 # Main routine starts here
@@ -103,8 +103,11 @@ def rps_compare(user, comp) :
 # Intialise game variables
 mode = "regular"
 rounds_played = 0
+rounds_tied = 0
+rounds_lost = 0
 
 rps_list = ["rock", "paper", "scissors", "xxx"]
+game_history = []
 
 print("💎📃✂️ Rock / Paper / Scissors Game 💎📃✂️")
 print()
@@ -149,8 +152,21 @@ while rounds_played < num_rounds:
 
 
     result = rps_compare(user_choice, comp_choice)
-    print(f"{user_choice} vs {comp_choice}, {result}")
 
+    if result == "tie":
+       rounds_tied += 1
+       feedback = "👔👔 It's a tie!! 👔👔"
+    elif result == "lose":
+       rounds_lost += 1
+       feedback = "😭😭 You Lost! 😭😭"
+    else:
+       feedback = "❤️❤️ You Won!!!! ❤️❤️"
+
+    round_feedback = f"{user_choice} vs {comp_choice}, {feedback}"
+    history_item = f"Round: {rounds_played} - {round_feedback}"
+
+    print(round_feedback)
+    game_history.append(history_item)
     rounds_played += 1
     # if user are in infinite mode, increase number of rounds
     if mode == "infinite":
@@ -159,4 +175,34 @@ while rounds_played < num_rounds:
 
 # Game loop ends here
 
-# Game history / Statistics area
+if rounds_played > 0:
+    # Calculate Statistics
+    rounds_won = rounds_played - rounds_tied - rounds_lost
+    percent_won = rounds_won / rounds_played * 100
+    percent_lost = rounds_lost / rounds_played * 100
+    percent_tied = 100 - percent_won - percent_lost
+
+    # Output Game Statistics
+    print("📊📊📊 Game Statistics 📊📊📊")
+    print(f"❤️ Won: {percent_won:.2f} \t"
+          f"😭 Lost: {percent_lost:.2f} \t"
+          f"👔 Tied: {percent_tied:.2f}")
+
+    # initialise list to hold game history
+    game_history = []
+
+    # Game history / Statistics area
+    see_history = string_checker("\nDo you want to see your game history? ")
+    if see_history == "yes":
+        print("Game History")
+
+    for item in game_history:
+        print(item)
+
+    print()
+    print("Thanks for playing.")
+
+else:
+    print("🐔🐔🐔 You chickened out, Coward! 🐔🐔🐔")
+
+
